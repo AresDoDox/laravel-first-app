@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use App\Http\Requests\TodoRequest;
+use App\Http\Resources\TodoResource;
 
 class TodoController extends Controller
 {
@@ -13,7 +14,7 @@ class TodoController extends Controller
 
         return response()->json([
             'message' => 'Todos retrieved successfully',
-            'data' => $todos
+            'data' => TodoResource::collection($todos)
         ], 200);
     }
 
@@ -29,7 +30,7 @@ class TodoController extends Controller
 
         return response()->json([
             'message' => 'Todo retrieved successfully',
-            'data' => $todo
+            'data' => new TodoResource($todo)
         ], 200);
     }
 
