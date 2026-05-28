@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Jobs\ProcessTodoJob;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\TodoResource;
 
@@ -78,6 +79,9 @@ class TodoController extends Controller
             'title' => $request->title,
             'content' => $request->content,
         ]);
+
+        // Job
+        ProcessTodoJob::dispatch($todos);
 
         return response()->json([
             'message' => 'Todo created successfully',
