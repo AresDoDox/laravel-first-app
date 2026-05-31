@@ -8,13 +8,17 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * name, password, remember_token, email, email_verified_at, birthday, sex, type_work, status, phone, address, start_date, end_date, part_id, position_id, team_id, type_account_id
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname')->nullable();
+            $table->string('name')->nullable();
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken()->nullable();
             $table->date('birthday')->nullable();
             $table->unsignedTinyInteger('sex')->default(0)->comment('0: nam, 1: nữ, 2: khác');
             $table->unsignedTinyInteger('type_work')->default(0)->comment('0: fulltime, 1: parttime');
